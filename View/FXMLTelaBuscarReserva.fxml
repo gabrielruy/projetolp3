@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXMLTelaBuscarReservaController">
    <children>
       <MenuBar>
          <menus>
@@ -46,7 +46,7 @@
       <Pane prefHeight="374.0" prefWidth="600.0">
          <children>
             <Label layoutX="19.0" layoutY="7.0" text="BUSCAR RESERVAS " />
-            <Button fx:id="bntBuscar" layoutX="519.0" layoutY="45.0" mnemonicParsing="false" text="BUSCAR " />
+            <Button fx:id="btnBuscar" layoutX="519.0" layoutY="45.0" mnemonicParsing="false" onAction="#buscar" text="BUSCAR " />
             <TextField fx:id="txtBuscarReserva" layoutX="19.0" layoutY="45.0" prefHeight="25.0" prefWidth="486.0" promptText="Digite o nome do aluno" />
             <TableView fx:id="grdBuscarReserva" layoutX="19.0" layoutY="86.0" prefHeight="132.0" prefWidth="564.0">
                <columns>
@@ -58,10 +58,10 @@
                   <TableColumn prefWidth="81.0" text="ALUNO" />
                </columns>
             </TableView>
-            <Button fx:id="bntCanReserva" layoutX="19.0" layoutY="335.0" mnemonicParsing="false" text="CANCELAR RESERVA " />
-            <Button fx:id="bntAtReserva" layoutX="157.0" layoutY="335.0" mnemonicParsing="false" text="ATUALIZAR RESERVA " />
-            <Button fx:id="bntSalvar" layoutX="520.0" layoutY="335.0" mnemonicParsing="false" text="SALVAR " />
-            <Button fx:id="btnCancelar" layoutX="422.0" layoutY="335.0" mnemonicParsing="false" text="CANCELAR " />
+            <Button fx:id="btnCanReserva" layoutX="19.0" layoutY="335.0" mnemonicParsing="false" onAction="#canreserva" text="CANCELAR RESERVA " />
+            <Button fx:id="btnAtReserva" layoutX="157.0" layoutY="335.0" mnemonicParsing="false" onAction="#atualizarreserva" text="ATUALIZAR RESERVA " />
+            <Button fx:id="btnSalvar" layoutX="520.0" layoutY="335.0" mnemonicParsing="false" onAction="#salvar" text="SALVAR " />
+            <Button fx:id="btnCancelar" layoutX="422.0" layoutY="335.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
             <Label layoutX="19.0" layoutY="231.0" text="RESERVA SELECIONADA" />
          </children>
       </Pane>

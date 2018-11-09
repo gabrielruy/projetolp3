@@ -16,7 +16,7 @@ public class Main extends Application {
 
 		Pane root = loader.load();
 
-		FXMLTelaLoginController controller = (FXMLTelaLoginController) loader.getController();
+		//FXMLTelaLoginController controller = (FXMLTelaLoginController) loader.getController();
 
 		Scene scene = new Scene(root);
 

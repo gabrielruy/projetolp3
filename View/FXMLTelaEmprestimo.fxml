@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXMLTelaEmprestimoController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -57,14 +57,14 @@
                         <TableColumn prefWidth="101.0" text="ANO DE EDIÇÃO" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btnBuscar" layoutX="521.0" layoutY="48.0" mnemonicParsing="false" text="BUSCAR " />
+                  <Button fx:id="btnBuscar" layoutX="521.0" layoutY="48.0" mnemonicParsing="false" onAction="#buscar" text="BUSCAR " />
                   <Label layoutX="19.0" layoutY="205.0" text="LIVRO SELECIONADO:" />
                   <Label layoutX="19.0" layoutY="237.0" text="RA DO ALUNO" />
                   <TextField fx:id="txtRaAluno" layoutX="141.0" layoutY="233.0" prefHeight="25.0" prefWidth="149.0" />
                   <Label layoutX="19.0" layoutY="277.0" text="DATA DA RETIRADA" />
                   <DatePicker fx:id="dateRetirada" layoutX="141.0" layoutY="273.0" prefHeight="25.0" prefWidth="149.0" />
-                  <Button fx:id="bntEfetuarEmp" layoutX="446.0" layoutY="324.0" mnemonicParsing="false" text="EFETUAR EMPRÉSTIMO" />
-                  <Button fx:id="btnCancelar" layoutX="351.0" layoutY="324.0" mnemonicParsing="false" text="CANCELAR " />
+                  <Button fx:id="bntEfetuarEmp" layoutX="446.0" layoutY="324.0" mnemonicParsing="false" onAction="#salvarEmp" text="EFETUAR EMPRÉSTIMO" />
+                  <Button fx:id="btnCancelar" layoutX="351.0" layoutY="324.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
                   <TextField fx:id="txtBuscarLivroEmp" layoutX="14.0" layoutY="48.0" prefHeight="25.0" prefWidth="490.0" promptText="Digite o nome do livro" />
                   <Label layoutX="317.0" layoutY="277.0" text="DATA DA DEVOLUÇÃO" />
                   <DatePicker fx:id="dateDevolução" layoutX="448.0" layoutY="273.0" prefHeight="25.0" prefWidth="136.0" />

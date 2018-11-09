@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXMLTelaCadastroLivroController">
    <children>
       <MenuBar>
          <menus>
@@ -67,8 +67,8 @@
                         <Label layoutX="390.0" layoutY="96.0" text="ISBN" />
                         <Label layoutX="10.0" layoutY="137.0" text="STATUS " />
                         <ChoiceBox fx:id="cbStatus" layoutX="65.0" layoutY="134.0" prefWidth="150.0" />
-                        <Button fx:id="btnSalvar" layoutX="516.0" layoutY="272.0" mnemonicParsing="false" text="SALVAR" />
-                        <Button fx:id="btnCancelar" layoutX="429.0" layoutY="272.0" mnemonicParsing="false" text="CANCELAR " />
+                        <Button fx:id="btnSalvar" layoutX="516.0" layoutY="272.0" mnemonicParsing="false" onAction="#salvar" text="SALVAR" />
+                        <Button fx:id="btnCancelar" layoutX="429.0" layoutY="272.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
                      </children>
                   </AnchorPane>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="107.0" prefWidth="598.0" />
