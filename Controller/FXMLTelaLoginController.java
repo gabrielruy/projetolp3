@@ -2,14 +2,18 @@ package Controller;
 
 import java.awt.TextField;
 import java.io.IOException;
+import java.sql.Connection;
 
+import Model.ConnectionFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -43,9 +47,11 @@ public class FXMLTelaLoginController {
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.setResizable(false);
-			stage.setTitle("Biblioteca Universitária");
-			stage.setScene(scene);
+			stage.setTitle("Biblioteca Universitária");				
+			stage.setScene(scene);			
 			stage.show();
+			
+			
 //		} else {
 //			labelLogin.setText("Usuario ou senhar errados");
 		

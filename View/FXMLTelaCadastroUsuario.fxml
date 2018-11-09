@@ -51,14 +51,14 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="179.0" prefWidth="615.0">
                      <children>
                         <Label layoutX="6.0" layoutY="16.0" text="NOME:" />
-                        <TextField fx:id="tctCadAluno" layoutX="70.0" layoutY="12.0" prefHeight="25.0" prefWidth="516.0" />
-                        <TextField fx:id="txtRG" layoutX="70.0" layoutY="48.0" prefHeight="25.0" prefWidth="225.0" />
+                        <TextField fx:id="txtNome" layoutX="70.0" layoutY="12.0" prefHeight="25.0" prefWidth="516.0" />
+                        <TextField fx:id="txtRg" layoutX="70.0" layoutY="48.0" prefHeight="25.0" prefWidth="225.0" />
                         <Label layoutX="6.0" layoutY="52.0" text="RG:" />
-                        <TextField fx:id="txtCPF" layoutX="360.0" layoutY="48.0" prefHeight="25.0" prefWidth="225.0" />
+                        <TextField fx:id="txtCpf" layoutX="360.0" layoutY="48.0" prefHeight="25.0" prefWidth="225.0" />
                         <Label layoutX="305.0" layoutY="52.0" text="CPF:" />
                         <TextField fx:id="txtEmail" layoutX="70.0" layoutY="89.0" prefHeight="25.0" prefWidth="516.0" />
                         <Label layoutX="6.0" layoutY="93.0" text="E-MAIL:" />
-                        <TextField fx:id="TxtTelefone" layoutX="70.0" layoutY="125.0" prefHeight="25.0" prefWidth="225.0" />
+                        <TextField fx:id="txtTelefone" layoutX="70.0" layoutY="125.0" prefHeight="25.0" prefWidth="225.0" />
                         <Label layoutX="6.0" layoutY="129.0" text="TELEFONE:" />
                      </children>
                   </AnchorPane>
@@ -70,7 +70,7 @@
                         <Label layoutX="6.0" layoutY="32.0" text="LOGRAD.:" />
                         <TextField fx:id="txtNumero" layoutX="521.0" layoutY="28.0" prefHeight="25.0" prefWidth="63.0" />
                         <Label layoutX="7.0" layoutY="98.0" text="CEP:" />
-                        <TextField fx:id="txtCEP" layoutX="70.0" layoutY="94.0" prefHeight="25.0" prefWidth="225.0" />
+                        <TextField fx:id="txtCep" layoutX="70.0" layoutY="94.0" prefHeight="25.0" prefWidth="225.0" />
                         <Label layoutX="303.0" layoutY="63.0" text="CIDADE:" />
                         <Label layoutX="7.0" layoutY="63.0" text="BAIRRO:" />
                         <TextField fx:id="txtBairro" layoutX="70.0" layoutY="59.0" prefHeight="25.0" prefWidth="225.0" />
