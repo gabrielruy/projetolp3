@@ -1,41 +1,41 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Livro {
 	
-	private String nome;
 	private Integer id;
+	private String nome;	
 	private String autor;
-	private Date publicacao;
+	private LocalDate publicacao;
 	private String editora;
 	private Integer nroEdicao;
 	private String isbn;
-	private Boolean emprestado;
+	private String situacao;
 	private Boolean reservado;
 	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}	
 	public String getAutor() {
 		return autor;
 	}
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
-	public Date getPublicacao() {
+	public LocalDate getPublicacao() {
 		return publicacao;
 	}
-	public void setPublicacao(Date publicacao) {
+	public void setPublicacao(LocalDate publicacao) {
 		this.publicacao = publicacao;
 	}
 	public String getEditora() {
@@ -56,11 +56,11 @@ public class Livro {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-	public Boolean getEmprestado() {
-		return emprestado;
+	public String getSituacao() {
+		return situacao;
 	}
-	public void setEmprestado(Boolean emprestado) {
-		this.emprestado = emprestado;
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
 	}
 	public Boolean getReservado() {
 		return reservado;

@@ -74,16 +74,16 @@
                         <Label layoutX="303.0" layoutY="63.0" text="CIDADE:" />
                         <Label layoutX="7.0" layoutY="63.0" text="BAIRRO:" />
                         <TextField fx:id="txtBairro" layoutX="70.0" layoutY="59.0" prefHeight="25.0" prefWidth="225.0" />
-                        <Button fx:id="btnSalvar" layoutX="515.0" layoutY="130.0" mnemonicParsing="false" onAction="#salvar" text="SALVAR" />
-                        <Button fx:id="btnCancelar" layoutX="411.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
                         <TextField fx:id="txtCidade" layoutX="359.0" layoutY="59.0" prefHeight="25.0" prefWidth="225.0" />
                         <Label layoutX="303.0" layoutY="98.0" text="ESTADO:" />
-                        <ComboBox fx:id="comboEstado" layoutX="359.0" layoutY="94.0" prefHeight="25.0" prefWidth="225.0" />
+                        <ComboBox fx:id="cbEstado" layoutX="359.0" layoutY="94.0" prefHeight="25.0" prefWidth="225.0" />
+                        <Button fx:id="btnSalvar" layoutX="505.0" layoutY="129.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="78.0" text="SALVAR" />
+                        <Button fx:id="btnCancelar" layoutX="402.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
                      </children>
                   </AnchorPane>
                </items>
             </SplitPane>
-            <Label layoutX="14.0" layoutY="8.0" text="CADASTRAR ALUNO" />
+            <Label layoutX="14.0" layoutY="10.0" text="CADASTRAR ALUNO" />
          </children>
       </Pane>
    </children>

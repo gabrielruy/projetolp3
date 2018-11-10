@@ -40,15 +40,15 @@ public class FXMLTelaCadastroUsuarioController {
 	@FXML
 	private TextField txtCidade;
 	@FXML
-	private ComboBox<String> comboEstado;
+	private ComboBox<String> cbEstado;
 	
 	private AlunoDAO dao = new AlunoDAO();
 	
 	@FXML
 	public void initialize() {
 		ObservableList<String> list = listarEstados();
-		comboEstado.getItems().removeAll(comboEstado.getItems());
-		comboEstado.setItems(list);
+		cbEstado.getItems().removeAll(cbEstado.getItems());
+		cbEstado.setItems(list);
 	}
 
 	// Cancelar
@@ -58,6 +58,7 @@ public class FXMLTelaCadastroUsuarioController {
 	}
 
 	// Salvar
+	@FXML
 	public void salvar() throws IOException {
 		Boolean estaPreenchido = estaPreenchido();
 		
@@ -87,7 +88,7 @@ public class FXMLTelaCadastroUsuarioController {
 		a.setCep(txtCep.getText());
 		a.setBairro(txtBairro.getText());
 		a.setCidade(txtCidade.getText());
-		a.setEstado(comboEstado.getValue().toString());
+		a.setEstado(cbEstado.getValue().toString());
 
 		return a;
 	}
@@ -105,7 +106,7 @@ public class FXMLTelaCadastroUsuarioController {
 				!txtCep.getText().trim().isEmpty() &&
 				!txtBairro.getText().trim().isEmpty() &&
 				!txtCidade.getText().trim().isEmpty() &&
-				!comboEstado.getSelectionModel().isEmpty())
+				!cbEstado.getSelectionModel().isEmpty())
 			return true;
 		
 		return false;

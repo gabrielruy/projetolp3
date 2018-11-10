@@ -43,7 +43,7 @@ public class AlunoDAO {
 			if (e.getMessage().toString().contains("UN_ALUNO_CPF")) 
 				InfoAlert.errorAlert("Erro ao cadastrar", "O CPF informado já está cadastrado.");
 			
-			/* State settado como TRUE aqui para haver maior controle de erro.
+			/* State settado como TRUE para haver maior controle de erro.
 			   O erro acima só será exibido em caso de CPF duplicado. Em outros casos o erro será genérico. */
 			state = true;
 		}		

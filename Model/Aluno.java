@@ -2,6 +2,7 @@ package Model;
 
 public class Aluno {
 
+	private Integer id;
 	private String nome;
 	private String rg;
 	private String cpf;
@@ -16,6 +17,13 @@ public class Aluno {
 	private String cidade;
 	private String estado;
 	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}

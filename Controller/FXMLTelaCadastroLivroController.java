@@ -1,60 +1,110 @@
 package Controller;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
+import Model.InfoAlert;
+import Model.Livro;
+import Model.LivroDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class FXMLTelaCadastroLivroController {
-	
 
-    @FXML private TextField txtNomeLivro;
-    @FXML private TextField txtID;
-    @FXML private TextField txtAutor;
-    @FXML private TextField txtEditora;
-    @FXML private DatePicker datePublicacao;
-    @FXML private TextField txtEdicao;
-    @FXML private TextField txtISBN;
-    @FXML private ChoiceBox<?> cbStatus;
-    @FXML private Button btnSalvar;
-    @FXML private Button btnCancelar;
-	
-    
-  //CANCELAR
+	@FXML
+    private TextField txtNomeLivro;
     @FXML
-    public void cancelar() throws IOException {
-    	/*
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaConfig.fxml"));
-        Pane root = loader.load();
-        
-        FXMLTelaConfigController controller = (FXMLTelaConfigController) loader.getController();
-        ((Stage) btnCancelar.getScene().getWindow()).hide();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setResizable(false);      
-        stage.setTitle("Cadastro de Livro");
-        stage.setScene(scene);
-        stage.show();
-        */
-    	
-    	Stage stage = (Stage) btnCancelar.getScene().getWindow();
-		stage.close();
-    }
+    private TextField txtAutor;
+    @FXML
+    private TextField txtEditora;
+    @FXML
+    private DatePicker datePublicacao;
+    @FXML
+    private TextField txtEdicao;
+    @FXML
+    private TextField txtISBN;
+    @FXML
+    private ComboBox<String> cbStatus;
+    @FXML
+    private Button btnSalvar;
+    @FXML
+    private Button btnCancelar;
     
-    //SALVAR 
-    public void salvar() {
-    	
-    }
+    private LivroDAO dao = new LivroDAO();
+    
+    @FXML
+	public void initialize() {
+		ObservableList<String> list = listarStatus();
+		cbStatus.getItems().removeAll(cbStatus.getItems());
+		cbStatus.setItems(list);
+	}
 
+	// Cancelar
+	@FXML
+	public void cancelar() throws IOException {
+		fechaStage();
+	}
+
+	// Salvar
+	@FXML
+	public void salvar() {
+		Boolean estaPreenchido = estaPreenchido();
+		
+		if(estaPreenchido) {
+			Livro l = getDTO();
+			
+			if(dao.create(l)) {
+				InfoAlert.infoAlert("Livro cadastrado", "Livro cadastrado com sucesso");				
+				fechaStage();
+			} else
+				InfoAlert.errorAlert("Erro ao cadastrar", "Não foi possível cadastrar o Livro");
+		} else
+			InfoAlert.errorAlert("Erro ao cadastrar", "Preencha todos os campos");
+	}
 	
+	private Livro getDTO() {
+		Livro l = new Livro();
+		
+		l.setNome(txtNomeLivro.getText());
+		l.setAutor(txtAutor.getText());
+		l.setPublicacao(datePublicacao.getValue());
+		l.setEditora(txtEditora.getText());
+		l.setNroEdicao(Integer.parseInt(txtEdicao.getText()));
+		l.setIsbn(txtISBN.getText());
+		l.setSituacao(cbStatus.getValue().toString());
+		l.setReservado(false); // Quando o livro é criado, não está reservado
+		
+		return l;
+	}
+	
+	private Boolean estaPreenchido() {
+		if (!txtNomeLivro.getText().isEmpty() &&
+				!txtAutor.getText().isEmpty() &&
+				!txtEditora.getText().isEmpty() &&
+				!txtEdicao.getText().isEmpty() &&
+				!txtEdicao.getText().isEmpty() &&
+				!txtISBN.getText().isEmpty() &&
+				!cbStatus.getSelectionModel().isEmpty() &&
+				!datePublicacao.getValue().equals(null))
+			return true;
+		
+		return false;
+	}
+	
+	private ObservableList<String> listarStatus() {
+		ObservableList<String> list = 
+				FXCollections.observableArrayList("Indisponível", "Disponível");
+		return list;
+	}
+	
+	private void fechaStage() {	
+		Stage stage = (Stage) txtNomeLivro.getScene().getWindow();
+		stage.close();
+	}
+
 }
