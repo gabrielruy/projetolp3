@@ -34,6 +34,8 @@ public class FXMLTelaCadastroUsuarioController {
 	@FXML
 	private TextField txtBairro;
 	@FXML
+	private TextField txtRa;
+	@FXML
 	private Button btnSalvar;
 	@FXML
 	private Button btnCancelar;
@@ -88,6 +90,7 @@ public class FXMLTelaCadastroUsuarioController {
 		a.setCep(txtCep.getText());
 		a.setBairro(txtBairro.getText());
 		a.setCidade(txtCidade.getText());
+		a.setRa(Integer.parseInt(txtRa.getText()));
 		a.setEstado(cbEstado.getValue().toString());
 
 		return a;
@@ -106,6 +109,7 @@ public class FXMLTelaCadastroUsuarioController {
 				!txtCep.getText().trim().isEmpty() &&
 				!txtBairro.getText().trim().isEmpty() &&
 				!txtCidade.getText().trim().isEmpty() &&
+				!txtRua.getText().trim().isEmpty() &&
 				!cbEstado.getSelectionModel().isEmpty())
 			return true;
 		

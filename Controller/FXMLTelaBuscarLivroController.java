@@ -1,75 +1,227 @@
 package Controller;
 
-import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Model.InfoAlert;
+import Model.Livro;
+import Model.LivroDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class FXMLTelaBuscarLivroController {
+public class FXMLTelaBuscarLivroController implements Initializable  {
 
-	
-	  	@FXML private TableView<?> grdBuscarLivro;
-	    @FXML private Button bntEditar;
-	    @FXML private TextField txtBuscarLivro;
-	    @FXML private Button bntExcluir;
-	    @FXML private RadioButton rbAtivar;
-	    @FXML private RadioButton rbblocked;
-	    @FXML private Button bntBuscar;
-	    @FXML private Button bntAtulaizar;
-	    @FXML private Button bntSalvar;
-	    @FXML private Button bntCancelar;
+    @FXML
+    private TextField txtBuscarLivro;
+    @FXML
+    private Button bntExcluir;
+    @FXML
+    private Button bntBuscar;
+    @FXML
+    private Button bntAtulaizar;
+    @FXML
+    private Button bntVoltar;
+    @FXML
+    private TextField txtNomeLivro;
+    @FXML
+    private TextField txtAutor;
+    @FXML
+    private TextField txtEditora;
+    @FXML
+    private TextField txtISBN;
+    @FXML
+    private DatePicker datePublicacao;
+    @FXML
+    private TextField txtEdicao;
+    @FXML
+    private ComboBox<String> cbStatus;
+    
+    @FXML
+    private TableView<Livro> grdBuscarLivro;
+    @FXML
+    private TableColumn<Livro, Integer> clmnId;
+    @FXML
+    private TableColumn<Livro, String> clmnNome;
+    @FXML
+    private TableColumn<Livro, Integer> clmnEdicao;
+
+    @Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+    	ObservableList<String> listStatus = listarStatus();
+		cbStatus.getItems().removeAll(cbStatus.getItems());
+		cbStatus.setItems(listStatus);
+    	
+    	try {
+			populaTabela(null);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    // Voltar
+    @FXML
+    private void voltar() {
+    	fechaStage();
+    }
+    
+    // Buscar 
+    @FXML
+    private void buscar () throws SQLException {
+    	if(txtBuscarLivro.getText().trim().isEmpty()) {
+			populaTabela(null);
+		} else {
+			populaTabela(txtBuscarLivro.getText());
+		}
+    }
+    
+    // Atualizar
+    @FXML
+    private void atualizar() throws SQLException {
+    	String situacao = grdBuscarLivro.getSelectionModel().getSelectedItem().getSituacao();
+    	
+    	if(txtNomeLivro.getText().trim().isEmpty()) {
+			InfoAlert.infoAlert("Alerta", "Selecione um aluno para atualizar.");
+		} else if (statusBloqueante() && !situacao.equals(cbStatus.getValue().toString())) {
+			InfoAlert.infoAlert("Não é possível atualizar o livro.", "O livro está emprestado/reservado. "
+					+ "\nNão é possível atualizar o status do mesmo."
+					+ "\nDê baixa no empréstimo/reserva para proceder.");
+		} else {
+			Alert alert = InfoAlert.confirmationAlert("Deseja atualizar o livro?", "Você tem certeza que deseja atualizar este livro?");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if (result.get() == ButtonType.OK) {
+				Livro l = getDTO();
+				if(LivroDAO.update(l)) {
+					buscar();
+					InfoAlert.infoAlert("Livro atualizado", "Livro atualizado com sucesso.");
+				}
+			}
+		}
+    }   
+
+    // Excluir
+    @FXML
+    private void excluir() throws SQLException {
+    	if(txtNomeLivro.getText().trim().isEmpty()) {
+			InfoAlert.infoAlert("Alerta", "Selecione um livro para excluir.");
+		} else if (statusBloqueante()) {
+			InfoAlert.infoAlert("Não é possível excluir o livro.", "O livro está emprestado/reservado. "
+					+ "\nDê baixa no empréstimo/reserva para proceder.");
+		} else {
+			Alert alert = InfoAlert.confirmationAlert("Deseja excluir o livro?", "Você tem certeza que deseja excluir este livro?");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if (result.get() == ButtonType.OK) {
+				if(LivroDAO.delete(grdBuscarLivro.getSelectionModel().getSelectedItem())) {
+					populaTabela(null);
+					limparTextBox();
+					InfoAlert.infoAlert("Livro excluído", "Livro excluído com sucesso.");
+				}
+			}
+		}	
+    } 
+    
+    // Click na Table
+    @FXML
+    private void tableSelect(MouseEvent event) {
+    	exibeLivro();
+    }
+    
+    private void populaTabela(String filtro) throws SQLException {
+		ObservableList<Livro> list = FXCollections.observableArrayList();
 		
-	    
-	  //CANCELAR
-	    @FXML
-	    public void cancelar() throws IOException {
-
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaConfig.fxml"));
-	        Pane root = loader.load();
-	        FXMLTelaConfigController controller = (FXMLTelaConfigController) loader.getController();
-	        ((Stage) bntCancelar.getScene().getWindow()).hide();
-	        Scene scene = new Scene(root);
-	        Stage stage = new Stage();
-	        stage.setResizable(false);      
-	        stage.setTitle("Buscar livro");
-	        stage.setScene(scene);
-	        stage.show();
-	    }
-	    
-	  //EDITAR  
-	    @FXML
-	    void editar() {
-	    	
-	    }
-	    
-	    //SALVAR 
-	    @FXML
-	    void salvar() {
-	    	
-	    }
-	  //BUSCAR 
-	    @FXML
-	    void buscar() {
-	    	
-	    }
-	  //ATUALIZAR
-	    @FXML
-	    void atualizar() {
-	    	
-	    }
-	  //EXCLUIR
-	    @FXML
-	    void excluir() {
-	    	
-	    }
+		grdBuscarLivro.getItems().removeAll(grdBuscarLivro.getItems());
+		
+		if	(filtro == null) {
+			try {
+				list = LivroDAO.listAll();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		} else {
+			list = LivroDAO.listByName(txtBuscarLivro.getText().toString());
+		}
+				
+		clmnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		clmnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		clmnEdicao.setCellValueFactory(new PropertyValueFactory<>("nroEdicao"));
+		
+		grdBuscarLivro.setItems(list);
+	}
+    
+    private void exibeLivro() {
+		Livro l = grdBuscarLivro.getSelectionModel().getSelectedItem();
+		
+		setDTO(l);
+	}
+	
+	private void setDTO(Livro l) {
+		txtNomeLivro.setText(l.getNome());
+		txtAutor.setText(l.getEditora());
+		txtEditora.setText(l.getEditora());
+		txtISBN.setText(l.getIsbn());
+		txtEdicao.setText(l.getNroEdicao().toString());
+		datePublicacao.setValue(l.getPublicacao());
+		cbStatus.setValue(l.getSituacao());
+	}
+	
+	private Livro getDTO() {
+		Livro l = new Livro();
+		
+		l.setId((grdBuscarLivro.getSelectionModel().getSelectedItem()).getId());
+		l.setNome(txtNomeLivro.getText());
+		l.setAutor(txtAutor.getText());
+		l.setEditora(txtEditora.getText());
+		l.setIsbn(txtISBN.getText());
+		l.setNroEdicao(Integer.parseInt(txtEdicao.getText()));
+		l.setPublicacao(datePublicacao.getValue());
+		l.setSituacao(cbStatus.getValue().toString());	
+		
+		return l;
+	}
+	
+	private void limparTextBox() {
+		txtNomeLivro.clear();
+		txtAutor.clear();
+		txtEditora.clear();
+		txtISBN.clear();
+		txtEdicao.clear();
+		datePublicacao.getEditor().clear();
+		cbStatus.getSelectionModel().clearSelection();
+	}
+	
+	private Boolean statusBloqueante() {
+		String situacao = grdBuscarLivro.getSelectionModel().getSelectedItem().getSituacao();
+		
+		if (situacao.equals("Emprestado") || situacao.equals("Reservado")) {
+			return true;
+		}		
+		return false;
+	}
+	
+	private ObservableList<String> listarStatus() {
+		ObservableList<String> list = 
+				FXCollections.observableArrayList("Indisponível", "Disponível", "Emprestado", "Reservado");
+		return list;
+	}
+    
+    private void fechaStage() {
+    	Stage stage = (Stage) txtBuscarLivro.getScene().getWindow();
+		stage.close();
+    }
 }

@@ -77,7 +77,6 @@ public class FXMLTelaCadastroLivroController {
 		l.setNroEdicao(Integer.parseInt(txtEdicao.getText()));
 		l.setIsbn(txtISBN.getText());
 		l.setSituacao(cbStatus.getValue().toString());
-		l.setReservado(false); // Quando o livro é criado, não está reservado
 		
 		return l;
 	}

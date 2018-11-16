@@ -60,6 +60,8 @@
                         <Label layoutX="6.0" layoutY="93.0" text="E-MAIL:" />
                         <TextField fx:id="txtTelefone" layoutX="70.0" layoutY="125.0" prefHeight="25.0" prefWidth="225.0" />
                         <Label layoutX="6.0" layoutY="129.0" text="TELEFONE:" />
+                        <Label layoutX="305.0" layoutY="129.0" text="RA:" />
+                        <TextField fx:id="txtRa" layoutX="360.0" layoutY="123.0" prefHeight="25.0" prefWidth="225.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="173.0" prefWidth="598.0">

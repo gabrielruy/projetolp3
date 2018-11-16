@@ -59,6 +59,8 @@ public class FXMLTelaBuscarUsuarioController implements Initializable {
     @FXML
     private TextField txtBairro;
     @FXML
+    private TextField txtRa;
+    @FXML
     private ComboBox<String> cbEstado;
     @FXML
     private ComboBox<String> cbStatus;
@@ -138,9 +140,7 @@ public class FXMLTelaBuscarUsuarioController implements Initializable {
 					InfoAlert.infoAlert("Aluno excluído", "Aluno excluído com sucesso.");
 				}
 			}
-		}
-		
-			
+		}	
 	}
 	
 	// Click na Table	
@@ -187,6 +187,7 @@ public class FXMLTelaBuscarUsuarioController implements Initializable {
 		txtCep.setText(a.getCep());
 		txtCidade.setText(a.getCidade());
 		txtBairro.setText(a.getBairro());
+		txtRa.setText(a.getRa().toString());
 		cbEstado.setValue(a.getEstado());
 		cbStatus.setValue(a.getStatus());
 	}
@@ -205,6 +206,7 @@ public class FXMLTelaBuscarUsuarioController implements Initializable {
 		a.setNumero(Integer.parseInt(txtNumero.getText().toString()));
 		a.setCep(txtCep.getText());
 		a.setBairro(txtBairro.getText());
+		a.setRa(Integer.parseInt(txtRa.getText()));
 		a.setCidade(txtCidade.getText());
 		a.setEstado(cbEstado.getValue().toString());		
 		
@@ -222,6 +224,7 @@ public class FXMLTelaBuscarUsuarioController implements Initializable {
 		txtCep.clear();
 		txtCidade.clear();
 		txtBairro.clear();
+		txtRa.clear();
 		cbEstado.getSelectionModel().clearSelection();
 		cbStatus.getSelectionModel().clearSelection();
 	}

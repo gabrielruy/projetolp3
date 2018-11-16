@@ -12,7 +12,6 @@ public class Livro {
 	private Integer nroEdicao;
 	private String isbn;
 	private String situacao;
-	private Boolean reservado;
 	
 	public Integer getId() {
 		return id;
@@ -61,11 +60,5 @@ public class Livro {
 	}
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
-	}
-	public Boolean getReservado() {
-		return reservado;
-	}
-	public void setReservado(Boolean reservado) {
-		this.reservado = reservado;
 	}
 }

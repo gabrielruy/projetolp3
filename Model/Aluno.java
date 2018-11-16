@@ -9,6 +9,7 @@ public class Aluno {
 	private String email;
 	private String telefone;
 	private String status;
+	private Integer ra;
 	/** Atributos de endereço **/
 	private String logradouro;
 	private Integer numero;
@@ -59,6 +60,12 @@ public class Aluno {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Integer getRa() {
+		return ra;
+	}
+	public void setRa(Integer ra) {
+		this.ra = ra;
 	}
 	public String getLogradouro() {
 		return logradouro;

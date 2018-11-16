@@ -20,8 +20,8 @@ public class AlunoDAO {
 		
 		Boolean state = false;
 		
-		String sql = "INSERT INTO Aluno (nome, rg, cpf, email, telefone, status, logradouro, numero, cep, bairro, cidade, estado) " +
-				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO Aluno (nome, rg, cpf, email, telefone, status, logradouro, numero, cep, bairro, cidade, estado, ra) " +
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		
 		try {
 			
@@ -38,6 +38,7 @@ public class AlunoDAO {
 			stmt.setString(10, a.getBairro());
 			stmt.setString(11, a.getCidade());
 			stmt.setString(12, a.getEstado());
+			stmt.setInt(13, a.getRa());
 			
 			stmt.execute();
 			stmt.close();
@@ -47,10 +48,11 @@ public class AlunoDAO {
 		} catch (SQLException e) {
 			if (e.getMessage().toString().contains("UN_ALUNO_CPF")) 
 				InfoAlert.errorAlert("Erro ao cadastrar", "O CPF informado já está cadastrado.");
-			
-			/* State settado como TRUE para haver maior controle de erro.
-			   O erro acima só será exibido em caso de CPF duplicado. Em outros casos o erro será genérico. */
-			state = true;
+			else if (e.getMessage().toString().contains("UN_ALUNO_RA"))
+				InfoAlert.errorAlert("Erro ao cadastrar", "O RA informado já está cadastrado.");
+			else {
+				InfoAlert.errorAlert("Erro.", "Erro ao cadastrar o aluno. \nLog de erro: " + e);
+			}
 		}		
 		return state;
 	}
@@ -60,7 +62,7 @@ public class AlunoDAO {
 		Boolean state = false;
 		
 		String sql = "UPDATE Aluno SET nome = ?, rg = ?, cpf = ?, email = ?, telefone = ?, "
-				+ "status = ?, logradouro = ?, numero = ?, cep = ?, bairro = ?, cidade = ?, estado = ? " +
+				+ "status = ?, logradouro = ?, numero = ?, cep = ?, bairro = ?, cidade = ?, estado = ?, ra = ? " +
 				"WHERE id = ?";
 		
 		try {
@@ -78,7 +80,8 @@ public class AlunoDAO {
 			stmt.setString(10, a.getBairro());
 			stmt.setString(11, a.getCidade());
 			stmt.setString(12, a.getEstado());
-			stmt.setInt(13, a.getId());
+			stmt.setInt(13, a.getRa());
+			stmt.setInt(14, a.getId());
 			
 			stmt.execute();
 			stmt.close();
@@ -86,7 +89,13 @@ public class AlunoDAO {
 			state = true;
 			
 		} catch (SQLException e) {
-			InfoAlert.errorAlert("Erro.", "Erro atualizar o aluno. \nLog de erro: " + e);;
+			if (e.getMessage().toString().contains("UN_ALUNO_CPF")) 
+				InfoAlert.errorAlert("Erro ao atualizar", "O CPF informado já está cadastrado.");
+			else if (e.getMessage().toString().contains("UN_ALUNO_RA"))
+				InfoAlert.errorAlert("Erro ao atualizar", "O RA informado já está cadastrado.");
+			else {
+				InfoAlert.errorAlert("Erro.", "Erro ao atualizar o aluno. \nLog de erro: " + e);
+			}
 		}
 		return state;
 	}
@@ -140,6 +149,7 @@ public class AlunoDAO {
 				a.setBairro(rs.getString("bairro"));
 				a.setCidade(rs.getString("cidade"));
 				a.setEstado(rs.getString("estado"));
+				a.setRa(rs.getInt("ra"));
 				
 				list.add(a);
 			}
@@ -187,6 +197,7 @@ public class AlunoDAO {
 				a.setBairro(rs.getString("bairro"));
 				a.setCidade(rs.getString("cidade"));
 				a.setEstado(rs.getString("estado"));
+				a.setRa(rs.getInt("ra"));
 				
 				list.add(a);
 			}
