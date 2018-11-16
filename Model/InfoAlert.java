@@ -20,4 +20,13 @@ public class InfoAlert {
 		alert.setContentText(content);
 		alert.showAndWait();
 	}
+	
+	public static Alert confirmationAlert(String titleBar, String content) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(titleBar);
+		alert.setHeaderText(null);
+		alert.setContentText(content);
+		
+		return alert;
+	}
 }
