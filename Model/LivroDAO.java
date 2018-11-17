@@ -186,6 +186,57 @@ private static Connection connection;
 		return null;
 	}
 	
+	public static ObservableList<Livro> listBySituation(String situacao, String nome) throws SQLException {
+		
+		ObservableList<Livro> list = FXCollections.observableArrayList(); 
+		
+		/* Foi necessário abrir a conexão neste método pois a IDE não estava reconhecendo o Path da mesma */
+		connection = new ConnectionFactory().getConnection();
+		PreparedStatement stmt = null;
+		
+		try {
+			
+			if (nome == null) {
+				String sql = "SELECT * FROM Livro WHERE situacao = ?";
+				stmt = connection.prepareStatement(sql);
+				stmt.setString(1, situacao);
+			}				
+			else {
+				String sql = "SELECT * FROM Livro WHERE situacao = ? and nome LIKE ?";
+				stmt = connection.prepareStatement(sql);
+				stmt.setString(1, situacao);
+				stmt.setString(2, "%" + nome + "%");				
+			}
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Livro l = new Livro();
+				
+				l.setId(rs.getInt("id"));
+				l.setNome(rs.getString("nome"));
+				l.setAutor(rs.getString("autor"));				
+				l.setPublicacao((rs.getDate("publicacao").toLocalDate()));
+				l.setEditora(rs.getString("editora"));
+				l.setNroEdicao(rs.getInt("nro_edicao"));
+				l.setIsbn(rs.getString("isbn"));
+				l.setSituacao(rs.getString("situacao"));
+				
+				list.add(l);
+			}
+			
+			rs.close();
+			
+			return list;
+		} catch (SQLException e) {
+			InfoAlert.errorAlert("Erro.", "Erro ao retornar a lista. \nLog de erro: " + e);
+		} finally {
+			stmt.close();
+		}
+		
+		return null;
+	}
+	
 	private static Date convertToDate(LocalDate locDate) {
 		return (locDate == null ? null : Date.valueOf(locDate));
 	}

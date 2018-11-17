@@ -89,7 +89,7 @@ public class FXMLTelaCadastroLivroController {
 				!txtEdicao.getText().isEmpty() &&
 				!txtISBN.getText().isEmpty() &&
 				!cbStatus.getSelectionModel().isEmpty() &&
-				!datePublicacao.getValue().equals(null))
+				datePublicacao.getValue() != null)
 			return true;
 		
 		return false;

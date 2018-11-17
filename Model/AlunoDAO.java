@@ -57,6 +57,50 @@ public class AlunoDAO {
 		return state;
 	}
 	
+	@SuppressWarnings("null")
+	public static Aluno readWithRa (Integer ra) throws SQLException {
+		
+		/* Foi necessário abrir a conexão neste método pois a IDE não estava reconhecendo o Path da mesma */
+		connection = new ConnectionFactory().getConnection();
+		PreparedStatement stmt = null;
+		Aluno aluno = null;
+
+		try {
+			
+			String sql = "SELECT * FROM Aluno WHERE ra = ?";
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, ra);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Aluno a = new Aluno();
+				
+				a.setId(rs.getInt("id"));
+				a.setNome(rs.getString("nome"));
+				a.setRg(rs.getString("rg"));
+				a.setCpf(rs.getString("cpf"));
+				a.setEmail(rs.getString("email"));
+				a.setTelefone(rs.getString("telefone"));
+				a.setStatus(rs.getString("status"));
+				a.setLogradouro(rs.getString("logradouro"));
+				a.setNumero(rs.getInt("numero"));
+				a.setCep(rs.getString("cep"));
+				a.setBairro(rs.getString("bairro"));
+				a.setCidade(rs.getString("cidade"));
+				a.setEstado(rs.getString("estado"));
+				a.setRa(rs.getInt("ra"));
+				
+				aluno = a;
+			}			
+		} catch (SQLException e) {
+			InfoAlert.errorAlert("Erro.", "Erro ao consultar aluno. \nLog de erro: " + e);
+		} finally {
+			stmt.close();
+		}
+		
+		return aluno;
+	}
+	
 	public static Boolean update(Aluno a) {
 		
 		Boolean state = false;

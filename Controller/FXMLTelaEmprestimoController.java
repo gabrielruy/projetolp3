@@ -1,56 +1,182 @@
 package Controller;
 
-import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import Model.Aluno;
+import Model.AlunoDAO;
+import Model.InfoAlert;
+import Model.Livro;
+import Model.LivroDAO;
+import Model.Reserva;
+import Model.ReservaDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class FXMLTelaEmprestimoController  {
-	
-	@FXML private TableView<?> grdEmpLivro;
-    @FXML private Button btnBuscar;
-    @FXML private TextField txtRaAluno;
-    @FXML private DatePicker dateRetirada;
-    @FXML private Button bntEfetuarEmp;
-    @FXML private Button btnCancelar;
-    @FXML private TextField txtBuscarLivroEmp;
-    @FXML private DatePicker dateDevolução;
-	
-    
-  //CANCELAR
-    @FXML
-    public void cancelar() throws IOException {
+public class FXMLTelaEmprestimoController implements Initializable {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaConfig.fxml"));
-        Pane root = loader.load();
-        FXMLTelaConfigController controller = (FXMLTelaConfigController) loader.getController();
-        ((Stage) btnCancelar.getScene().getWindow()).hide();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setResizable(false);      
-        stage.setTitle("Emprestimo de livro");
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    private Button btnBuscar;
+    @FXML
+    private TextField txtRaAluno;
+    @FXML
+    private DatePicker dateRetirada;
+    @FXML
+    private Button bntEfetuarEmp;
+    @FXML
+    private Button btnCancelar;
+    @FXML
+    private TextField txtBuscarLivroEmp;
+    @FXML
+    private DatePicker dateDevolução;
+    @FXML
+    private Label lblNomeAluno;
+    
+    @FXML
+    private TableView<Livro> grdEmpLivro;
+    @FXML
+    private TableColumn<Livro, Integer> clmnId;
+    @FXML
+    private TableColumn<Livro, String> clmnNome;
+    @FXML
+    private TableColumn<Livro, String> clmnAutor;
+    @FXML
+    private TableColumn<Livro, Integer> clmnEdicao;
+    
+    @Override
+   	public void initialize(URL arg0, ResourceBundle arg1) {       	
+       	try {
+   			populaTabela(null);
+   		} catch (SQLException e) {
+   			e.printStackTrace();
+   		}
+    }
+
+    // Voltar
+    @FXML
+    private void voltar() {
+    	fechaStage();
     }
     
-    //SALVAR 
-   public void salvarEmp() {
+    // Cancelar
+    @FXML
+    private void cancelar() throws SQLException {
+    	txtRaAluno.clear();
+    	lblNomeAluno.setText("");
+    	txtBuscarLivroEmp.clear();
+    	dateRetirada.getEditor().clear();
+    	dateDevolução.getEditor().clear();
     	
+    	populaTabela(null);
     }
     
-    //BUSCAR 
-    public void buscar() {
-	   
-   }
-	
+    // Buscar    
+    @FXML
+    private void buscar() throws SQLException {
+    	if(txtBuscarLivroEmp.getText().trim().isEmpty()) {
+			populaTabela(null);
+		} else {
+			populaTabela(txtBuscarLivroEmp.getText());
+		}
+    }
+
+    // Enter no TextField do RA
+    @FXML
+    private void raInserido() throws NumberFormatException, SQLException {
+    	Aluno a = AlunoDAO.readWithRa(Integer.parseInt(txtRaAluno.getText()));
+    	if (a != null) {
+    		lblNomeAluno.setText(a.getNome().toString());
+    	} else {
+    		InfoAlert.infoAlert("RA inválido", "O RA inserido não é válido.");
+    		txtRaAluno.clear();
+    		lblNomeAluno.setText("");
+    	}
+    }
+
+    // Efetuar Empréstimo
+    @FXML
+    private void salvarEmp() throws NumberFormatException, SQLException {
+    	Boolean estaPreenchido = estaPreenchido();
+    	Livro l = grdEmpLivro.getSelectionModel().getSelectedItem();
+    	
+		if(estaPreenchido) {
+			if (l != null) {
+				Reserva r = getDTO();
+				if(ReservaDAO.create(r) && LivroDAO.update(r.getLivro())) {
+					InfoAlert.infoAlert("Empréstimo cadastrado", "Empréstimo cadastrado com sucesso");				
+					fechaStage();
+				} else
+					InfoAlert.errorAlert("Erro ao cadastrar", "Não foi possível cadastrar o Livro");
+			}				
+			else
+				InfoAlert.errorAlert("Erro ao cadastrar", "Selecione um livro para efetuar o empréstimo.");
+		} else
+			InfoAlert.errorAlert("Erro ao cadastrar", "Preencha todos os campos");
+    }
+    
+    private void populaTabela(String filtro) throws SQLException {
+		ObservableList<Livro> list = FXCollections.observableArrayList();
+		
+		grdEmpLivro.getItems().removeAll(grdEmpLivro.getItems());
+		
+		if	(filtro == null) {
+			try {
+				list = LivroDAO.listBySituation("Disponível", null);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		} else {
+			list = LivroDAO.listBySituation("Disponível", txtBuscarLivroEmp.getText().toString());
+		}
+				
+		clmnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		clmnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		clmnAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
+		clmnEdicao.setCellValueFactory(new PropertyValueFactory<>("nroEdicao"));
+		
+		grdEmpLivro.setItems(list);
+	}
+    
+    private Boolean estaPreenchido() {
+		if (!txtRaAluno.getText().isEmpty() &&
+				dateDevolução.getValue() != null &&
+				dateRetirada.getValue() != null)
+			return true;
+		
+		return false;
+	}
+    
+    private Reserva getDTO() throws NumberFormatException, SQLException {
+    	Reserva r = new Reserva();
+    	
+    	Aluno a = AlunoDAO.readWithRa(Integer.parseInt(txtRaAluno.getText()));
+    	Livro l = grdEmpLivro.getSelectionModel().getSelectedItem();
+    	
+    	l.setSituacao("Emprestado");
+    	
+    	r.setAluno(a);
+    	r.setLivro(l);
+    	r.setDataDevolucao(dateDevolução.getValue());
+    	r.setDataRetirada(dateRetirada.getValue());
+    	r.setTipo("Empréstimo"); // Neste controller estamos cadastrando empréstimos
+    	r.setAtivo(true); // Controla qual empréstimo está em vigor
+    	
+    	return r;
+    }
+
+    private void fechaStage() {
+    	Stage stage = (Stage) txtBuscarLivroEmp.getScene().getWindow();
+		stage.close();
+    }
 }
