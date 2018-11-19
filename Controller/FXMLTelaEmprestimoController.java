@@ -117,7 +117,7 @@ public class FXMLTelaEmprestimoController implements Initializable {
 					InfoAlert.infoAlert("Empréstimo cadastrado", "Empréstimo cadastrado com sucesso");				
 					fechaStage();
 				} else
-					InfoAlert.errorAlert("Erro ao cadastrar", "Não foi possível cadastrar o Livro");
+					InfoAlert.errorAlert("Erro ao cadastrar", "Não foi possível cadastrar o empréstimo");
 			}				
 			else
 				InfoAlert.errorAlert("Erro ao cadastrar", "Selecione um livro para efetuar o empréstimo.");

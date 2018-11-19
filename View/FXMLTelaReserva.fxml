@@ -46,24 +46,24 @@
       </MenuBar>
       <Pane prefHeight="454.0" prefWidth="600.0">
          <children>
-            <Label layoutX="21.0" layoutY="14.0" text="RESERVA DE LIVRO" />
-            <TableView fx:id="grdReservaLivro" layoutX="13.0" layoutY="87.0" prefHeight="101.0" prefWidth="569.0">
+            <TableView fx:id="grdReservaLivro" layoutX="13.0" layoutY="46.0" prefHeight="170.0" prefWidth="569.0">
               <columns>
-                <TableColumn prefWidth="20.0" text="ID" />
-                <TableColumn prefWidth="382.0" text="NOME DO LIVRO" />
-                  <TableColumn prefWidth="63.0" text="AUTOR" />
-                  <TableColumn prefWidth="103.0" text="ANO DE EDIÇÃO" />
+                <TableColumn fx:id="clmnId" prefWidth="24.0" text="ID" />
+                <TableColumn fx:id="clmnNome" prefWidth="261.0" text="NOME DO LIVRO" />
+                  <TableColumn fx:id="clmnAutor" prefWidth="233.0" text="AUTOR" />
+                  <TableColumn fx:id="clmnEdicao" prefWidth="50.0" text="EDIÇÃO" />
               </columns>
             </TableView>
-            <Button fx:id="bntBuscar" layoutX="518.0" layoutY="48.0" mnemonicParsing="false" onAction="#buscar" text="BUSCAR " />
-            <Label layoutX="19.0" layoutY="205.0" text="LIVRO SELECIONADO:" />
-            <Label layoutX="19.0" layoutY="237.0" text=" RA DO ALUNO" />
-            <TextField fx:id="txtRaAluno" layoutX="135.0" layoutY="233.0" prefHeight="25.0" prefWidth="182.0" />
-            <Label layoutX="19.0" layoutY="277.0" text="DATA DA RESERVA " />
-            <DatePicker fx:id="dateReserva" layoutX="138.0" layoutY="273.0" prefHeight="25.0" prefWidth="182.0" />
-            <Button fx:id="bntEfeturReserva" layoutX="454.0" layoutY="324.0" mnemonicParsing="false" onAction="#reserva" text="EFETUAR RESERVA" />
-            <Button fx:id="btnCancelar" layoutX="353.0" layoutY="324.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
-            <TextField fx:id="txtBuscarLivroReserva" layoutX="14.0" layoutY="48.0" prefHeight="25.0" prefWidth="491.0" promptText="Digite o nome do livro " />
+            <Button fx:id="bntBuscar" layoutX="518.0" layoutY="8.0" mnemonicParsing="false" onAction="#buscar" text="BUSCAR " />
+            <Label layoutX="19.0" layoutY="237.0" text=" RA DO ALUNO:" />
+            <TextField fx:id="txtRaAluno" layoutX="135.0" layoutY="233.0" onAction="#raInserido" prefHeight="25.0" prefWidth="160.0" />
+            <Label layoutX="19.0" layoutY="277.0" text="DATA DA RESERVA:" />
+            <DatePicker fx:id="dateReserva" layoutX="138.0" layoutY="273.0" prefHeight="25.0" prefWidth="160.0" />
+            <Button fx:id="btnEfetuarReserva" layoutX="461.0" layoutY="324.0" mnemonicParsing="false" onAction="#reserva" text="EFETUAR RESERVA" />
+            <Button fx:id="btnCancelar" layoutX="341.0" layoutY="324.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
+            <TextField fx:id="txtBuscarLivroReserva" layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="491.0" promptText="Digite o nome do livro " />
+            <Button fx:id="btnVoltar" layoutX="220.0" layoutY="324.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="78.0" text="VOLTAR" />
+            <Label fx:id="lblNomeAluno" layoutX="327.0" layoutY="237.0" prefHeight="17.0" prefWidth="254.0" />
          </children>
       </Pane>
    </children>

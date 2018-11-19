@@ -31,7 +31,7 @@
             </Menu>
           <Menu fx:id="mnReserva" mnemonicParsing="false" text="RESERVA">
             <items>
-              <MenuItem fx:id="mnFazerReserva" mnemonicParsing="false" onAction="#fazReserva" text="FAZER RESERVA" />
+              <MenuItem fx:id="mnFazerReserva" mnemonicParsing="false" onAction="#fazReserva" text="CADASTRAR" />
                   <MenuItem fx:id="mnBuscarReserva" mnemonicParsing="false" onAction="#buscarReserva" text="BUSCAR LIVROS RESERVADOS" />
             </items>
           </Menu>
