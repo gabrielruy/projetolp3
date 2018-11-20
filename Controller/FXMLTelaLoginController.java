@@ -47,7 +47,7 @@ public class FXMLTelaLoginController {
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.setResizable(false);
-			stage.setTitle("Biblioteca Universitária");				
+			stage.setTitle("BIBLIOTECA UNIVERSITÁRIA");				
 			stage.setScene(scene);			
 			stage.show();
 			

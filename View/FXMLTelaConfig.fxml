@@ -26,13 +26,13 @@
             <Menu fx:id="mnEmprestimo" mnemonicParsing="false" text="EMPRÉSTIMO ">
                <items>
                   <MenuItem fx:id="mnEmpLivro" mnemonicParsing="false" onAction="#empLivro" text="CADASTRAR" />
-                  <MenuItem fx:id="mnBuscarEmp" mnemonicParsing="false" onAction="#buscarEmprestimo" text="BUSCAR LIVROS EMPRETADOS" />
+                  <MenuItem fx:id="mnBuscarEmp" mnemonicParsing="false" onAction="#buscarEmprestimo" text="BAIXAR" />
                </items>
             </Menu>
           <Menu fx:id="mnReserva" mnemonicParsing="false" text="RESERVA">
             <items>
               <MenuItem fx:id="mnFazerReserva" mnemonicParsing="false" onAction="#fazReserva" text="CADASTRAR" />
-                  <MenuItem fx:id="mnBuscarReserva" mnemonicParsing="false" onAction="#buscarReserva" text="BUSCAR LIVROS RESERVADOS" />
+                  <MenuItem fx:id="mnBuscarReserva" mnemonicParsing="false" onAction="#buscarReserva" text="BAIXAR / EFETIVAR" />
             </items>
           </Menu>
             <Menu fx:id="mnSair" mnemonicParsing="false" onAction="#sair" text="SAIR" />

@@ -45,24 +45,31 @@
       </MenuBar>
       <Pane prefHeight="374.0" prefWidth="600.0">
          <children>
-            <Label layoutX="19.0" layoutY="7.0" text="BUSCAR EMPRÉSTIMOS " />
-            <Button fx:id="btnBuscarEmp" layoutX="519.0" layoutY="45.0" mnemonicParsing="false" onAction="#buscar" text="BUSCAR " />
-            <TextField fx:id="txtBuscarEmp" layoutX="19.0" layoutY="45.0" prefHeight="25.0" prefWidth="486.0" promptText="Digite o nome do livro" />
-            <TableView fx:id="grdBuscarEmp" layoutX="19.0" layoutY="86.0" prefHeight="132.0" prefWidth="564.0">
+            <Button fx:id="btnBuscarEmp" layoutX="519.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscar" text="BUSCAR " />
+            <TextField fx:id="txtBuscarEmp" layoutX="19.0" layoutY="10.0" prefHeight="25.0" prefWidth="486.0" promptText="Digite o nome do livro" />
+            <TableView fx:id="grdBuscarEmp" layoutX="19.0" layoutY="46.0" onMouseClicked="#tableSelect" prefHeight="156.0" prefWidth="564.0">
                <columns>
-                  <TableColumn prefWidth="40.0" text="ID" />
-                  <TableColumn prefWidth="154.0" text="NOME DO LIVRO" />
-                  <TableColumn prefWidth="55.0" text="AUTOR" />
-                  <TableColumn prefWidth="131.0" text="ANO DE EDIÇÃO" />
-                  <TableColumn prefWidth="81.0" text="STATUS " />
-                  <TableColumn prefWidth="81.0" text="ALUNO" />
+                  <TableColumn fx:id="clmnId" prefWidth="40.0" text="ID" />
+                  <TableColumn fx:id="clmnNome" prefWidth="238.0" text="NOME DO LIVRO" />
+                  <TableColumn fx:id="clmnAutor" prefWidth="230.0" text="AUTOR" />
+                  <TableColumn fx:id="clmnEdicao" prefWidth="52.0" text="EDIÇÃO" />
                </columns>
             </TableView>
-            <Button fx:id="btnDevolverLivro" layoutX="23.0" layoutY="301.0" mnemonicParsing="false" onAction="#devolverlivro" text=" DEVOLVER LIVRO" />
-            <Button fx:id="btnRelQuitacao" layoutX="22.0" layoutY="335.0" mnemonicParsing="false" onAction="#quitacao" text="EMITIR RELATÓRIO DE QUITAÇÃO " />
-            <Button fx:id="btnSalvar" layoutX="520.0" layoutY="335.0" mnemonicParsing="false" onAction="#salvar" text="SALVAR " />
-            <Button fx:id="btnCancelar" layoutX="422.0" layoutY="335.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
-            <Label layoutX="22.0" layoutY="231.0" text="EMPRÉSTIMO SELECIONADO" />
+            <Button fx:id="btnDevolverLivro" layoutX="469.0" layoutY="335.0" mnemonicParsing="false" onAction="#devolverLivro" text=" DEVOLVER LIVRO" />
+            <Button fx:id="btnCancelar" layoutX="349.0" layoutY="335.0" mnemonicParsing="false" onAction="#cancelar" text="CANCELAR " />
+            <Button fx:id="btnVoltar" layoutX="213.0" layoutY="335.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="77.0" text="VOLTAR" />
+            <Label fx:id="lblNomeLivro" layoutX="70.0" layoutY="223.0" prefHeight="17.0" prefWidth="231.0" />
+            <Label layoutX="19.0" layoutY="223.0" text="LIVRO:" />
+            <Label layoutX="19.0" layoutY="251.0" text="AUTOR:" />
+            <Label fx:id="lblNomeAutor" layoutX="70.0" layoutY="251.0" prefHeight="17.0" prefWidth="231.0" />
+            <Label layoutX="19.0" layoutY="278.0" text="RA:" />
+            <Label layoutX="19.0" layoutY="302.0" text="ALUNO:" />
+            <Label fx:id="lblRaAluno" layoutX="70.0" layoutY="278.0" prefHeight="17.0" prefWidth="231.0" />
+            <Label fx:id="lblNomeAluno" layoutX="70.0" layoutY="302.0" prefHeight="17.0" prefWidth="231.0" />
+            <Label layoutX="313.0" layoutY="223.0" text="DATA RETIRADA:" />
+            <Label layoutX="313.0" layoutY="251.0" text="DATA DEVOLUÇÃO:" />
+            <Label fx:id="lblDataRetirada" layoutX="427.0" layoutY="223.0" prefHeight="17.0" prefWidth="155.0" />
+            <Label fx:id="lblDataDevolucao" layoutX="428.0" layoutY="251.0" prefHeight="17.0" prefWidth="155.0" />
          </children>
       </Pane>
    </children>

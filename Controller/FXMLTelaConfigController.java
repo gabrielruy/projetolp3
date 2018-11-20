@@ -41,7 +41,7 @@ public class FXMLTelaConfigController {
 	@FXML
 	private Menu mnSair;
 	@FXML
-    private Text txtAux;
+	private Text txtAux;
 
 	// Menu: Sair
 	@FXML
@@ -55,35 +55,31 @@ public class FXMLTelaConfigController {
 	void cadAluno() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaCadastroUsuario.fxml"));
 		Pane root = loader.load();
-		
-		//Controller.FXMLTelaCadastroUsuarioController controller = (Controller.FXMLTelaCadastroUsuarioController) loader.getController();
-		
+
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setResizable(false);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(txtAux.getScene().getWindow());
-		stage.setTitle("Cadastro de Aluno");
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Cadastro de Aluno");
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	// Menu: Buscar Aluno
+	// Menu: Gerenciar Aluno
 	@FXML
 	void buscarAluno() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaBuscarUsuario.fxml"));
 		Pane root = loader.load();
-		
-		//Controller.FXMLTelaBuscarUsuarioController controller = (Controller.FXMLTelaBuscarUsuarioController) loader.getController();
-		
+
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setResizable(false);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(txtAux.getScene().getWindow());
-		stage.setTitle("Buscar de Aluno");
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Gerenciamento de Aluno");
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -93,35 +89,31 @@ public class FXMLTelaConfigController {
 	void cadLivro() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaCadastroLivro.fxml"));
 		Pane root = loader.load();
-		
-		//Controller.FXMLTelaCadastroLivroController controller = (Controller.FXMLTelaCadastroLivroController) loader.getController();
-		
+
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setResizable(false);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(txtAux.getScene().getWindow());
-		stage.setTitle("Cadastrar de Livro");
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Cadastro de Livro");
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	// Menu: Buscar Livro
+	// Menu: Gerenciar Livro
 	@FXML
 	void buscarLivro() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaBuscarLivro.fxml"));
 		Pane root = loader.load();
-		
-		//Controller.FXMLTelaBuscarLivroController controller = (Controller.FXMLTelaBuscarLivroController) loader.getController();
-		
+
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setResizable(false);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(txtAux.getScene().getWindow());
-		stage.setTitle("Buscar de Livro");
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Gerenciamento de Livro");
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -131,35 +123,31 @@ public class FXMLTelaConfigController {
 	void empLivro() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaEmprestimo.fxml"));
 		Pane root = loader.load();
-		
-		//Controller.FXMLTelaEmprestimoController controller = (Controller.FXMLTelaEmprestimoController) loader.getController();
-		
+
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setResizable(false);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(txtAux.getScene().getWindow());
-		stage.setTitle("Emprestimo de livro");
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Empréstimo de Livro");
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	// Menu: Buscar Empréstimo
+	// Menu: Baixa de Empréstimo
 	@FXML
 	void buscarEmprestimo() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaBuscarEmprestimo.fxml"));
 		Pane root = loader.load();
-		
-		//Controller.FXMLTelaEmprestimoController controller = (Controller.FXMLTelaEmprestimoController) loader.getController();
 
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setResizable(false);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(txtAux.getScene().getWindow());
-		stage.setTitle("Listar livros emprestados");
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Baixa de Empréstimo");
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -169,35 +157,31 @@ public class FXMLTelaConfigController {
 	void fazReserva() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaReserva.fxml"));
 		Pane root = loader.load();
-		
-		//Controller.FXMLTelaReservaController controller = (Controller.FXMLTelaReservaController) loader.getController();
 
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setResizable(false);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(txtAux.getScene().getWindow());
-		stage.setTitle("Fazer reserva de livro");
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Reserva de Livro");
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	// Menu: Buscar Reserva
+	// Menu: Baixa de Reserva
 	@FXML
 	void buscarReserva() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaReserva.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaBuscarReserva.fxml"));
 		Pane root = loader.load();
-		
-		//Controller.FXMLTelaReservaController controller = (Controller.FXMLTelaReservaController) loader.getController();
-	
+
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setResizable(false);
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(txtAux.getScene().getWindow());
-		stage.setTitle("Livros reservados");
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Baixa de Reserva");
 		stage.setScene(scene);
 		stage.show();
 	}
