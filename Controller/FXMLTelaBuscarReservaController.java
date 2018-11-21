@@ -2,8 +2,10 @@ package Controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Model.InfoAlert;
 import Model.Livro;
 import Model.LivroDAO;
 import Model.Reserva;
@@ -12,7 +14,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -85,17 +89,53 @@ public class FXMLTelaBuscarReservaController implements Initializable {
 
     @FXML
     private void cancelar() {
-
+    	txtBuscarReserva.clear();
+    	lblNomeLivro.setText("");
+    	lblNomeAutor.setText("");
+    	lblNomeAluno.setText("");
+    	lblRaAluno.setText("");
+    	lblDataRetirada.setText("");
+    	dateDevolucao.getEditor().clear();
     }
 
     @FXML
-    private void cancelarReserva() {
-
+    private void cancelarReserva() throws NumberFormatException, SQLException {
+    	Boolean estaPreenchido = estaPreenchido(false);
+    	
+    	if (estaPreenchido) { 
+    		Alert alert = InfoAlert.confirmationAlert("Deseja cancelar a reserva?", "Você tem certeza que deseja cancelar esta reserva?");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if (result.get() == ButtonType.OK) { 
+				Reserva r = getDTOCancelamento();
+				if(ReservaDAO.delete(r) && LivroDAO.update(r.getLivro())) {
+					InfoAlert.infoAlert("Reserva cancelada", "Reserva cancelada com sucesso");				
+					fechaStage();
+	    		} else
+					InfoAlert.errorAlert("Erro ao cancelar reserva", "Não foi possível cancelar a reserva");
+			}
+    	} else
+    		InfoAlert.errorAlert("Erro ao cancelar", "Selecione uma reserva para cancelar");
     }
 
     @FXML
-    private void efetivarReserva() {
-
+    private void efetivarReserva() throws NumberFormatException, SQLException {
+    	Boolean estaPreenchido = estaPreenchido(true);
+    	
+    	if (estaPreenchido) {
+    		Alert alert = InfoAlert.confirmationAlert("Deseja efetivar a reserva?", "Você tem certeza que deseja efetivar esta reserva?");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if (result.get() == ButtonType.OK) { 
+				Reserva r = getDTOEmprestimo();
+	    		if(ReservaDAO.update(r) && LivroDAO.update(r.getLivro())) {
+					InfoAlert.infoAlert("Reserva efetivada", "Reserva efetivada com sucesso");				
+					fechaStage();
+	    		} else
+					InfoAlert.errorAlert("Erro ao efetivar reserva", "Não foi possível efetivar a reserva");
+			}  		
+    	} else
+    		InfoAlert.errorAlert("Erro ao efetivar", "Preencha todos os campos");
     }
     
     @FXML
@@ -140,6 +180,44 @@ public class FXMLTelaBuscarReservaController implements Initializable {
     	lblRaAluno.setText(r.getAluno().getRa().toString());
     	lblDataRetirada.setText(r.getDataRetirada().toString());
 	}
+    
+    private Reserva getDTOEmprestimo() throws NumberFormatException, SQLException {   	
+    	Livro l = grdBuscarReserva.getSelectionModel().getSelectedItem();
+    	Reserva r = ReservaDAO.read(l.getId());
+    	
+    	l.setSituacao("Emprestado");
+    	
+    	r.setLivro(l);
+    	r.setDataDevolucao(dateDevolucao.getValue());
+    	r.setTipo("Empréstimo"); // Estamos efetivando a reserva (Tornando-se empréstimo)
+    	r.setAtivo(true); // Controla qual reserva está em vigor
+    	
+    	return r;
+    }
+    
+    private Reserva getDTOCancelamento() throws NumberFormatException, SQLException {   	
+    	Livro l = grdBuscarReserva.getSelectionModel().getSelectedItem();
+    	Reserva r = ReservaDAO.read(l.getId());
+    	
+    	l.setSituacao("Disponível");
+    	
+    	r.setLivro(l);
+    	
+    	return r;
+    }
+    
+    private Boolean estaPreenchido(Boolean efetivacao) {
+    	if (efetivacao) {
+    		if (!lblNomeLivro.getText().trim().isEmpty() && 
+        			dateDevolucao.getValue() != null)
+        		return true;
+        	return false;
+    	} else {
+    		if (!lblNomeLivro.getText().trim().isEmpty())
+        		return true;
+        	return false;
+    	}
+    }
 
     private void fechaStage() {
     	Stage stage = (Stage) txtBuscarReserva.getScene().getWindow();

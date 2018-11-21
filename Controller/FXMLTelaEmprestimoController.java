@@ -2,6 +2,7 @@ package Controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Model.Aluno;
@@ -15,7 +16,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -95,8 +98,13 @@ public class FXMLTelaEmprestimoController implements Initializable {
     @FXML
     private void raInserido() throws NumberFormatException, SQLException {
     	Aluno a = AlunoDAO.readWithRa(Integer.parseInt(txtRaAluno.getText()));
+    	
     	if (a != null) {
-    		lblNomeAluno.setText(a.getNome().toString());
+    		if (a.getStatus().toString().equals("Bloqueado")) {
+    			InfoAlert.infoAlert("Aluno bloqueado", "O aluno inserido está bloqueado.");
+    			txtRaAluno.clear();
+    		} else 
+    			lblNomeAluno.setText(a.getNome().toString());
     	} else {
     		InfoAlert.infoAlert("RA inválido", "O RA inserido não é válido.");
     		txtRaAluno.clear();
@@ -112,12 +120,17 @@ public class FXMLTelaEmprestimoController implements Initializable {
     	
 		if(estaPreenchido) {
 			if (l != null) {
-				Reserva r = getDTO();
-				if(ReservaDAO.create(r) && LivroDAO.update(r.getLivro())) {
-					InfoAlert.infoAlert("Empréstimo cadastrado", "Empréstimo cadastrado com sucesso");				
-					fechaStage();
-				} else
-					InfoAlert.errorAlert("Erro ao cadastrar", "Não foi possível cadastrar o empréstimo");
+				Alert alert = InfoAlert.confirmationAlert("Deseja cadastrar o empréstimo?", "Você tem certeza que deseja cadastrar este empréstimo?");
+				Optional<ButtonType> result = alert.showAndWait();
+				
+				if (result.get() == ButtonType.OK) { 
+					Reserva r = getDTO();
+					if(ReservaDAO.create(r) && LivroDAO.update(r.getLivro())) {
+						InfoAlert.infoAlert("Empréstimo cadastrado", "Empréstimo cadastrado com sucesso");				
+						fechaStage();
+					} else
+						InfoAlert.errorAlert("Erro ao cadastrar", "Não foi possível cadastrar o empréstimo");
+				}				
 			}				
 			else
 				InfoAlert.errorAlert("Erro ao cadastrar", "Selecione um livro para efetuar o empréstimo.");

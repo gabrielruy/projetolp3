@@ -104,14 +104,18 @@ public class ReservaDAO {
 		
 		Boolean state = false;
 		
-		String sql = "UPDATE Reserva SET ativo = ? WHERE id = ?";
+		String sql = "UPDATE Reserva SET data_devolucao = ?, tipo = ?, ativo = ? WHERE id = ?";
 		
 		try {
 			
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setBoolean(1, r.getAtivo());
-			stmt.setInt(2, r.getId());
+			Date devolucao = convertToDate(r.getDataDevolucao()); 
+			
+			stmt.setDate(1, devolucao);
+			stmt.setString(2, r.getTipo());
+			stmt.setBoolean(3, r.getAtivo());
+			stmt.setInt(4, r.getId());
 						
 			stmt.execute();
 			stmt.close();
@@ -121,6 +125,25 @@ public class ReservaDAO {
 		} catch (SQLException e) {
 			InfoAlert.errorAlert("Erro.", "Erro atualizar a reserva/empréstimo. \nLog de erro: " + e);;
 		}
+		return state;
+	}
+	
+	public static Boolean delete(Reserva r) throws SQLException {
+		
+		Boolean state = false;
+		
+		String sql = "DELETE FROM Reserva WHERE id = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		
+		try {						
+			stmt.setInt(1, r.getId());
+			stmt.execute();
+			stmt.close();
+			state = true;
+		} catch (SQLException e) {
+			InfoAlert.errorAlert("Erro.", "Erro excluir a reserva. \nLog de erro: " + e);
+		} 
+		
 		return state;
 	}
 	

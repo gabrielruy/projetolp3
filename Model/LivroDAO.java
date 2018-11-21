@@ -46,7 +46,7 @@ private static Connection connection;
 			
 		} catch (SQLException e) {
 			/* Não há um erro específico para Livro, portanto, teremos uma mensagem genérica para erro ao inserir no BD */
-			InfoAlert.errorAlert("Erro.", "Erro ao cadastra o livro. \nLog de erro: " + e);
+			InfoAlert.errorAlert("Erro.", "Erro ao cadastrar o livro. \nLog de erro: " + e);
 		}		
 		return state;
 	}
@@ -97,7 +97,10 @@ private static Connection connection;
 			stmt.close();
 			state = true;
 		} catch (SQLException e) {
-			InfoAlert.errorAlert("Erro.", "Erro excluir o livro. \nLog de erro: " + e);
+			if (e.getMessage().toString().contains("FK_RESERVA_LIVRO")) {
+				InfoAlert.errorAlert("Não é possível excluir o livro", "O livro está vinculado a uma reserva/empréstimo.");
+			} else
+				InfoAlert.errorAlert("Erro.", "Erro excluir o livro. \nLog de erro: " + e);
 		} 
 		
 		return state;

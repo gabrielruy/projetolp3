@@ -157,7 +157,10 @@ public class AlunoDAO {
 			stmt.close();
 			state = true;
 		} catch (SQLException e) {
-			InfoAlert.errorAlert("Erro.", "Erro excluir o aluno. \nLog de erro: " + e);
+			if (e.getMessage().toString().contains("FK_RESERVA_ALUNO")) {
+				InfoAlert.errorAlert("Não é possível excluir o aluno", "O aluno está vinculado a uma reserva/empréstimo.");
+			} else
+				InfoAlert.errorAlert("Erro.", "Erro excluir o aluno. \nLog de erro: " + e);
 		} 
 		
 		return state;

@@ -2,6 +2,7 @@ package Controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Model.InfoAlert;
@@ -13,7 +14,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -97,12 +100,17 @@ public class FXMLTelaBuscarEmprestimoController implements Initializable {
     	if (lblNomeLivro.getText().trim().isEmpty()) {
     		InfoAlert.infoAlert("Erro", "Selecione um empréstimo para devolução.");
     	} else {
-    		Reserva r = getDTO();
-    		if(ReservaDAO.update(r) && LivroDAO.update(r.getLivro())) {
-				InfoAlert.infoAlert("Empréstimo baixado", "Empréstimo baixado com sucesso");				
-				fechaStage();
-			} else
-				InfoAlert.errorAlert("Erro ao baixar empréstimo", "Não foi possível baixar o empréstimo");
+    		Alert alert = InfoAlert.confirmationAlert("Deseja baixar o empréstimo?", "Você tem certeza que deseja baixar este empréstimo?");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if (result.get() == ButtonType.OK) { 
+				Reserva r = getDTO();
+	    		if(ReservaDAO.update(r) && LivroDAO.update(r.getLivro())) {
+					InfoAlert.infoAlert("Empréstimo baixado", "Empréstimo baixado com sucesso");				
+					fechaStage();
+				} else
+					InfoAlert.errorAlert("Erro ao baixar empréstimo", "Não foi possível baixar o empréstimo");
+			}   		
     	}
     }    
     
@@ -157,6 +165,7 @@ public class FXMLTelaBuscarEmprestimoController implements Initializable {
     	l.setSituacao("Disponível");
     	
     	r.setLivro(l);
+    	r.setTipo("Empréstimo");
     	r.setAtivo(false); // Controla qual reserva está em vigor
     	
     	return r;

@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class FXMLTelaLoginController {
@@ -40,17 +41,18 @@ public class FXMLTelaLoginController {
 	public void entrar() throws IOException {
 //		if (txtUser.getName().equals("admin") && txtPassword.getText().equals("admin")) {
 //			labelLogin.setText("Login realizado com sucesso");
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaConfig.fxml"));
-			Pane root = loader.load();
-			FXMLTelaConfigController controll = (FXMLTelaConfigController) loader.getController();
-			((Stage) btnEntrar.getScene().getWindow()).hide();
-			Scene scene = new Scene(root);
-			Stage stage = new Stage();
-			stage.setResizable(false);
-			stage.setTitle("BIBLIOTECA UNIVERSITÁRIA");				
-			stage.setScene(scene);			
-			stage.show();
-			
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaConfig.fxml"));
+		Pane root = loader.load();
+
+		
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+
+		stage.setResizable(false);
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA");
+		stage.setScene(scene);
+		stage.show();
+		btnEntrar.getScene().getWindow().hide();
 			
 //		} else {
 //			labelLogin.setText("Usuario ou senhar errados");
