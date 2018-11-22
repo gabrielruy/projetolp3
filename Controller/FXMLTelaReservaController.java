@@ -127,6 +127,7 @@ public class FXMLTelaReservaController implements Initializable {
     		if (a.getStatus().toString().equals("Bloqueado")) {
     			InfoAlert.infoAlert("Aluno bloqueado", "O aluno inserido está bloqueado.");
     			txtRaAluno.clear();
+    			lblNomeAluno.setText("");
     		} else 
     			lblNomeAluno.setText(a.getNome().toString());
     	} else {

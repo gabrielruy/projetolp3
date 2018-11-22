@@ -4,9 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -15,39 +12,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXMLTelaBuscarLivroController">
    <children>
-      <MenuBar>
-         <menus>
-            <Menu mnemonicParsing="false" text="ALUNO">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="CADASTRAR ALUNO" />
-                  <MenuItem mnemonicParsing="false" text="BUSCAR ALUNO" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="LIVROS">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="CADASTRAR LIVRO" />
-                  <MenuItem mnemonicParsing="false" text="BUSCAR LIVROS " />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="EMPRÉSTIMO ">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="EMPRESTAR LIVRO " />
-                  <MenuItem mnemonicParsing="false" text="BUSCAR LIVROS EMPRETADOS" />
-                  <MenuItem mnemonicParsing="false" text="CERTIFICADO DE QUITAÇÃO" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="RESERVA">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="FAZER RESERVA" />
-                  <MenuItem mnemonicParsing="false" text="BUSCAR LIVROS RESERVADOS" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="SAIR" />
-         </menus>
-      </MenuBar>
       <Pane prefHeight="430.0" prefWidth="700.0">
          <children>
-            <TableView fx:id="grdBuscarLivro" layoutX="3.0" layoutY="47.0" onMouseClicked="#tableSelect" prefHeight="376.0" prefWidth="375.0">
+            <TableView fx:id="grdBuscarLivro" layoutX="3.0" layoutY="47.0" onMouseClicked="#tableSelect" prefHeight="402.0" prefWidth="375.0">
                <columns>
                   <TableColumn fx:id="clmnId" prefWidth="35.0" text="ID" />
                   <TableColumn fx:id="clmnNome" prefWidth="258.0" text="NOME" />
@@ -55,24 +22,24 @@
                </columns>
             </TableView>
             <TextField fx:id="txtBuscarLivro" layoutX="3.0" layoutY="10.0" prefHeight="25.0" prefWidth="283.0" promptText="Digite o nome do livro" />
-            <Button fx:id="bntExcluir" layoutX="499.0" layoutY="397.0" mnemonicParsing="false" onAction="#excluir" prefHeight="25.0" prefWidth="80.0" text="EXCLUIR" />
+            <Button fx:id="bntExcluir" layoutX="499.0" layoutY="418.0" mnemonicParsing="false" onAction="#excluir" prefHeight="25.0" prefWidth="80.0" text="EXCLUIR" />
             <Button fx:id="bntBuscar" layoutX="298.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscar" prefHeight="25.0" prefWidth="80.0" text="BUSCAR " />
-            <Button fx:id="bntAtulaizar" layoutX="606.0" layoutY="397.0" mnemonicParsing="false" onAction="#atualizar" text="ATUALIZAR " />
-            <Button fx:id="bntVoltar" layoutX="393.0" layoutY="397.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="80.0" text="VOLTAR" />
+            <Button fx:id="bntAtulaizar" layoutX="606.0" layoutY="418.0" mnemonicParsing="false" onAction="#atualizar" text="ATUALIZAR " />
+            <Button fx:id="bntVoltar" layoutX="393.0" layoutY="418.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="80.0" text="VOLTAR" />
             <Label layoutX="387.0" layoutY="50.0" text="NOME:" />
             <TextField fx:id="txtNomeLivro" layoutX="449.0" layoutY="46.0" prefHeight="25.0" prefWidth="241.0" />
-            <Label layoutX="387.0" layoutY="95.0" text="AUTOR:" />
-            <TextField fx:id="txtAutor" layoutX="449.0" layoutY="91.0" prefHeight="25.0" prefWidth="241.0" />
-            <Label layoutX="387.0" layoutY="142.0" text="EDITORA:" />
-            <Label layoutX="387.0" layoutY="186.0" text="ISBN:" />
-            <TextField fx:id="txtEditora" layoutX="449.0" layoutY="136.0" prefHeight="25.0" prefWidth="241.0" />
-            <TextField fx:id="txtISBN" layoutX="449.0" layoutY="181.0" prefHeight="25.0" prefWidth="241.0" />
-            <Label layoutX="387.0" layoutY="230.0" text="PUBLIC.:" />
-            <DatePicker fx:id="datePublicacao" layoutX="449.0" layoutY="226.0" prefHeight="25.0" prefWidth="241.0" />
-            <Label layoutX="387.0" layoutY="277.0" text="EDIÇÃO:" />
-            <Label layoutX="387.0" layoutY="323.0" text="STATUS:" />
-            <TextField fx:id="txtEdicao" layoutX="449.0" layoutY="272.0" prefHeight="25.0" prefWidth="241.0" />
-            <ComboBox fx:id="cbStatus" layoutX="449.0" layoutY="317.0" prefHeight="25.0" prefWidth="241.0" />
+            <Label layoutX="387.0" layoutY="97.0" text="AUTOR:" />
+            <TextField fx:id="txtAutor" layoutX="449.0" layoutY="93.0" prefHeight="25.0" prefWidth="241.0" />
+            <Label layoutX="387.0" layoutY="146.0" text="EDITORA:" />
+            <Label layoutX="387.0" layoutY="192.0" text="ISBN:" />
+            <TextField fx:id="txtEditora" layoutX="449.0" layoutY="140.0" prefHeight="25.0" prefWidth="241.0" />
+            <TextField fx:id="txtISBN" layoutX="449.0" layoutY="187.0" prefHeight="25.0" prefWidth="241.0" />
+            <Label layoutX="387.0" layoutY="238.0" text="PUBLIC.:" />
+            <DatePicker fx:id="datePublicacao" layoutX="449.0" layoutY="234.0" prefHeight="25.0" prefWidth="241.0" />
+            <Label layoutX="387.0" layoutY="287.0" text="EDIÇÃO:" />
+            <Label layoutX="387.0" layoutY="335.0" text="STATUS:" />
+            <TextField fx:id="txtEdicao" layoutX="449.0" layoutY="282.0" prefHeight="25.0" prefWidth="241.0" />
+            <ComboBox fx:id="cbStatus" layoutX="449.0" layoutY="329.0" prefHeight="25.0" prefWidth="241.0" />
          </children>
       </Pane>
    </children>
