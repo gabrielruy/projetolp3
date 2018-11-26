@@ -42,6 +42,7 @@ public class FXMLTelaRelatorioQuitacaoController {
 				txtRa.clear();				
 			} else if (!empAtivos.isEmpty()) {
 				InfoAlert.infoAlert("Aluno possui empréstimos", "O aluno inserido possui empréstimos ativos.");
+				txtRa.clear();
 			} else {
 				Document doc = new Document();
 				String arquivoPdf = "relatorio_quitacao.pdf";
@@ -86,12 +87,13 @@ public class FXMLTelaRelatorioQuitacaoController {
 					doc.close();
 
 					Desktop.getDesktop().open(new File(arquivoPdf));
+					
+					fechaStage();
 
 				} catch (Exception e) {
 					InfoAlert.errorAlert("Erro", "Erro ao gerar relatório de quitação.");
 				}
-			}
-			fechaStage();
+			}			
 		} else {
 			InfoAlert.infoAlert("RA inválido", "O RA inserido não é válido.");
 			txtRa.clear();

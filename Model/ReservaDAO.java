@@ -175,6 +175,63 @@ public class ReservaDAO {
 		return empAtivos;
 	}
 	
+	public static ArrayList<Reserva> listByPeriod (LocalDate inicio, LocalDate fim) throws SQLException {
+		
+		/* Foi necessário abrir a conexão neste método pois a IDE não estava reconhecendo o Path da mesma */
+		connection = new ConnectionFactory().getConnection();
+		PreparedStatement stmt = null;
+		
+		ArrayList<Reserva> list = new ArrayList<Reserva>();
+		
+		Reserva reserva = new Reserva();
+		reserva.setAluno(new Aluno());
+		reserva.setLivro(new Livro());
+
+		try {
+			
+			String sql = "SELECT r.id, r.id_livro, l.nome as nome_livro, l.autor, r.id_aluno, a.nome as nome_aluno, a.ra, r.data_retirada, r.data_devolucao" + 
+					" from Aluno a INNER JOIN Reserva r ON a.id = r.id_aluno" + 
+					" INNER JOIN Livro l ON r.id_livro = l.id" + 
+					" WHERE r.data_retirada >= ? AND r.data_devolucao <= ?";
+			
+			stmt = connection.prepareStatement(sql);
+			
+			Date inicioSql = convertToDate(inicio); 
+			Date fimSql = convertToDate(fim); 
+			
+			stmt.setDate(1, inicioSql);
+			stmt.setDate(2, fimSql);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Reserva r = new Reserva();
+				r.setAluno(new Aluno());
+				r.setLivro(new Livro());
+				
+				r.setId(rs.getInt("id"));
+				r.getLivro().setId(rs.getInt("id_livro"));
+				r.getLivro().setNome(rs.getString("nome_livro"));
+				r.getLivro().setAutor(rs.getString("autor"));
+				r.getAluno().setId(rs.getInt("id_aluno"));
+				r.getAluno().setNome(rs.getString("nome_aluno"));
+				r.getAluno().setRa(rs.getInt("ra"));
+				r.setDataRetirada(rs.getDate("data_retirada").toLocalDate());
+				
+				if(rs.getDate("data_devolucao") != null) {
+					r.setDataDevolucao(rs.getDate("data_devolucao").toLocalDate());
+				}
+				
+				list.add(r);
+			}			
+		} catch (SQLException e) {
+			InfoAlert.errorAlert("Erro.", "Erro ao retornar lista. \nLog de erro: " + e);
+		} finally {
+			stmt.close();
+		}
+		
+		return list;
+	}
+	
 	private static Date convertToDate(LocalDate locDate) {
 		return (locDate == null ? null : Date.valueOf(locDate));
 	}

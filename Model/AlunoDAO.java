@@ -260,4 +260,51 @@ public class AlunoDAO {
 		
 		return null;
 	}
+	
+	public static ObservableList<Aluno> listBlocked() throws SQLException {
+		
+		ObservableList<Aluno> list = FXCollections.observableArrayList(); 
+		
+		/* Foi necessário abrir a conexão neste método pois a IDE não estava reconhecendo o Path da mesma */
+		connection = new ConnectionFactory().getConnection();
+		PreparedStatement stmt = null;
+		
+		try {
+						
+			String sql = "SELECT * FROM Aluno WHERE status = 'Bloqueado'";
+			stmt = connection.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Aluno a = new Aluno();
+				
+				a.setId(rs.getInt("id"));
+				a.setNome(rs.getString("nome"));
+				a.setRg(rs.getString("rg"));
+				a.setCpf(rs.getString("cpf"));
+				a.setEmail(rs.getString("email"));
+				a.setTelefone(rs.getString("telefone"));
+				a.setStatus(rs.getString("status"));
+				a.setLogradouro(rs.getString("logradouro"));
+				a.setNumero(rs.getInt("numero"));
+				a.setCep(rs.getString("cep"));
+				a.setBairro(rs.getString("bairro"));
+				a.setCidade(rs.getString("cidade"));
+				a.setEstado(rs.getString("estado"));
+				a.setRa(rs.getInt("ra"));
+				
+				list.add(a);
+			}
+			
+			rs.close();
+			
+			return list;
+		} catch (SQLException e) {
+			InfoAlert.errorAlert("Erro.", "Erro ao retornar a lista. \nLog de erro: " + e);
+		} finally {
+			stmt.close();
+		}
+		
+		return null;
+	}
 }

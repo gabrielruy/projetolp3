@@ -37,6 +37,12 @@
           </Menu>
             <Menu fx:id="mnRelatórios" mnemonicParsing="false" text="RELATÓRIOS">
                <items>
+                  <MenuItem fx:id="mnAlunosCadastrados" mnemonicParsing="false" onAction="#alunosCadastrados" text="ALUNOS CADASTRADOS" />
+                  <MenuItem fx:id="mnAlunosBloqueados" mnemonicParsing="false" onAction="#alunosBloqueados" text="ALUNOS BLOQUEADOS" />
+                  <MenuItem fx:id="mnLivrosCadastrados" mnemonicParsing="false" onAction="#livrosCadastrados" text="LIVROS CADASTRADOS" />
+                  <MenuItem fx:id="mnLivrosDisponiveis" mnemonicParsing="false" onAction="#livrosDisponiveis" text="LIVROS DISPONÍVEIS" />
+                  <MenuItem fx:id="mnLivrosEmprestados" mnemonicParsing="false" onAction="#livrosEmprestados" text="LIVROS EMPRESTADOS" />
+                  <MenuItem fx:id="mnEmprestimosPeriodo" mnemonicParsing="false" onAction="#emprestimosPeriodo" text="EMPRÉSTIMOS POR PERÍODO" />
                   <MenuItem fx:id="mnRelatorioQuitacao" mnemonicParsing="false" onAction="#relatorioQuitacao" text="RELATÓRIO DE QUITAÇÃO" />
                </items>
             </Menu>
