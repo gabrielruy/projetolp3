@@ -100,6 +100,8 @@ public class FXMLTelaBuscarLivroController implements Initializable  {
 			InfoAlert.infoAlert("Não é possível atualizar o livro.", "O livro está emprestado/reservado. "
 					+ "\nNão é possível atualizar o status do mesmo."
 					+ "\nDê baixa no empréstimo/reserva para proceder.");
+		} else if (cbStatus.getValue().toString().equals("Emprestado") || cbStatus.getValue().toString().equals("Reservado")) {
+			InfoAlert.infoAlert("Não é possível atualizar o livro.", "O livro não pode ser atualizado para emprestado/reservado");
 		} else {
 			Alert alert = InfoAlert.confirmationAlert("Deseja atualizar o livro?", "Você tem certeza que deseja atualizar este livro?");
 			Optional<ButtonType> result = alert.showAndWait();
