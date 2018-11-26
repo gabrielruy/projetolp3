@@ -120,21 +120,23 @@ public class FXMLTelaEmprestimoController implements Initializable {
     	Livro l = grdEmpLivro.getSelectionModel().getSelectedItem();
     	
 		if(estaPreenchido) {
-			if (l != null) {
-				Alert alert = InfoAlert.confirmationAlert("Deseja cadastrar o empréstimo?", "Você tem certeza que deseja cadastrar este empréstimo?");
-				Optional<ButtonType> result = alert.showAndWait();
-				
-				if (result.get() == ButtonType.OK) { 
-					Reserva r = getDTO();
-					if(ReservaDAO.create(r) && LivroDAO.update(r.getLivro())) {
-						InfoAlert.infoAlert("Empréstimo cadastrado", "Empréstimo cadastrado com sucesso");				
-						fechaStage();
-					} else
-						InfoAlert.errorAlert("Erro ao cadastrar", "Não foi possível cadastrar o empréstimo");
-				}				
-			}				
-			else
-				InfoAlert.errorAlert("Erro ao cadastrar", "Selecione um livro para efetuar o empréstimo.");
+			if(periodoValido()) {
+				if (l != null) {
+					Alert alert = InfoAlert.confirmationAlert("Deseja cadastrar o empréstimo?", "Você tem certeza que deseja cadastrar este empréstimo?");
+					Optional<ButtonType> result = alert.showAndWait();
+					
+					if (result.get() == ButtonType.OK) { 
+						Reserva r = getDTO();
+						if(ReservaDAO.create(r) && LivroDAO.update(r.getLivro())) {
+							InfoAlert.infoAlert("Empréstimo cadastrado", "Empréstimo cadastrado com sucesso");				
+							fechaStage();
+						} else
+							InfoAlert.errorAlert("Erro ao cadastrar", "Não foi possível cadastrar o empréstimo");
+					}				
+				} else
+					InfoAlert.errorAlert("Erro ao cadastrar", "Selecione um livro para efetuar o empréstimo.");
+			} else 
+				InfoAlert.errorAlert("Erro ao cadastrar", "Selecione um período válido.");				
 		} else
 			InfoAlert.errorAlert("Erro ao cadastrar", "Preencha todos os campos");
     }
@@ -170,6 +172,12 @@ public class FXMLTelaEmprestimoController implements Initializable {
 		
 		return false;
 	}
+    
+    private Boolean periodoValido() {
+    	if (dateRetirada.getValue().isAfter(dateDevolução.getValue()) || dateRetirada.getValue().isEqual(dateDevolução.getValue()))
+    		return false;
+    	return true;
+    }
     
     private Reserva getDTO() throws NumberFormatException, SQLException {
     	Reserva r = new Reserva();

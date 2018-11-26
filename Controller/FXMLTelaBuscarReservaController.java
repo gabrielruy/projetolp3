@@ -123,17 +123,20 @@ public class FXMLTelaBuscarReservaController implements Initializable {
     	Boolean estaPreenchido = estaPreenchido(true);
     	
     	if (estaPreenchido) {
-    		Alert alert = InfoAlert.confirmationAlert("Deseja efetivar a reserva?", "Você tem certeza que deseja efetivar esta reserva?");
-			Optional<ButtonType> result = alert.showAndWait();
-			
-			if (result.get() == ButtonType.OK) { 
-				Reserva r = getDTOEmprestimo();
-	    		if(ReservaDAO.update(r) && LivroDAO.update(r.getLivro())) {
-					InfoAlert.infoAlert("Reserva efetivada", "Reserva efetivada com sucesso");				
-					fechaStage();
-	    		} else
-					InfoAlert.errorAlert("Erro ao efetivar reserva", "Não foi possível efetivar a reserva");
-			}  		
+    		if (periodoValido()) {
+    			Alert alert = InfoAlert.confirmationAlert("Deseja efetivar a reserva?", "Você tem certeza que deseja efetivar esta reserva?");
+    			Optional<ButtonType> result = alert.showAndWait();
+    			
+    			if (result.get() == ButtonType.OK) { 
+    				Reserva r = getDTOEmprestimo();
+    	    		if(ReservaDAO.update(r) && LivroDAO.update(r.getLivro())) {
+    					InfoAlert.infoAlert("Reserva efetivada", "Reserva efetivada com sucesso");				
+    					fechaStage();
+    	    		} else
+    					InfoAlert.errorAlert("Erro ao efetivar reserva", "Não foi possível efetivar a reserva");
+    			} 
+    		} else
+    			InfoAlert.errorAlert("Erro ao efetivar", "Selecione uma data de devolução maior que a data de retirada.");    		 		
     	} else
     		InfoAlert.errorAlert("Erro ao efetivar", "Preencha todos os campos");
     }
@@ -217,6 +220,15 @@ public class FXMLTelaBuscarReservaController implements Initializable {
         		return true;
         	return false;
     	}
+    }
+    
+    private Boolean periodoValido() throws SQLException {
+    	Livro l = grdBuscarReserva.getSelectionModel().getSelectedItem();
+    	Reserva r = ReservaDAO.read(l.getId());
+    	
+    	if (r.getDataRetirada().isAfter(dateDevolucao.getValue()) || r.getDataRetirada().isEqual(dateDevolucao.getValue()))
+    		return false;
+    	return true;
     }
 
     private void fechaStage() {
