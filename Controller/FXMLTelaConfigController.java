@@ -39,7 +39,9 @@ public class FXMLTelaConfigController {
 	@FXML
 	private MenuItem mnBuscarReserva;
 	@FXML
-	private Menu mnSair;
+    private Menu mnRelatórios;
+    @FXML
+    private MenuItem mnRelatorioQuitacao;
 	@FXML
 	private Text txtAux;
 
@@ -185,5 +187,22 @@ public class FXMLTelaConfigController {
 		stage.setScene(scene);
 		stage.show();
 	}
+	
+	//Menu: Relatório de Quitação
+	@FXML
+    void relatorioQuitacao() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXMLTelaRelatorioQuitacao.fxml"));
+		Pane root = loader.load();
+
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+
+		stage.setResizable(false);
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner(txtAux.getScene().getWindow());
+		stage.setTitle("BIBLIOTECA UNIVERSITÁRIA - Relatório de Quitação");
+		stage.setScene(scene);
+		stage.show();
+    }
 
 }

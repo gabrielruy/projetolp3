@@ -35,6 +35,11 @@
                   <MenuItem fx:id="mnBuscarReserva" mnemonicParsing="false" onAction="#buscarReserva" text="BAIXAR / EFETIVAR" />
             </items>
           </Menu>
+            <Menu fx:id="mnRelatórios" mnemonicParsing="false" text="RELATÓRIOS">
+               <items>
+                  <MenuItem fx:id="mnRelatorioQuitacao" mnemonicParsing="false" onAction="#relatorioQuitacao" text="RELATÓRIO DE QUITAÇÃO" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <Text fx:id="txtAux" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="89.13671875">

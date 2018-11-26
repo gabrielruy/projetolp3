@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ReservaDAO {
 	
@@ -145,6 +146,33 @@ public class ReservaDAO {
 		} 
 		
 		return state;
+	}
+	
+	public static ArrayList<Integer> emprestimosAtivos (Integer ra) throws SQLException {
+		
+		/* Foi necessário abrir a conexão neste método pois a IDE não estava reconhecendo o Path da mesma */
+		connection = new ConnectionFactory().getConnection();
+		PreparedStatement stmt = null;
+		ArrayList<Integer> empAtivos = new ArrayList<Integer>();
+
+		try {
+			
+			String sql = "SELECT r.id FROM Reserva r INNER JOIN Aluno a ON a.id = r.id_aluno WHERE a.ra = ? AND r.ativo = 1";
+			
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, ra);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				empAtivos.add(rs.getInt("id"));
+			}			
+		} catch (SQLException e) {
+			InfoAlert.errorAlert("Erro.", "Erro ao retornar empréstimos ativos. \nLog de erro: " + e);
+		} finally {
+			stmt.close();
+		}
+		
+		return empAtivos;
 	}
 	
 	private static Date convertToDate(LocalDate locDate) {
