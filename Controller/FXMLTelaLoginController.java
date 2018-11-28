@@ -39,6 +39,7 @@ public class FXMLTelaLoginController {
 
 	@FXML
 	public void entrar() throws IOException, SQLException {
+		Boolean state = false;
 		ArrayList<Login> list = LoginDAO.listAll();
 		
 		for (Login l : list) {
@@ -55,9 +56,13 @@ public class FXMLTelaLoginController {
 				stage.setTitle("BIBLIOTECA UNIVERSITÁRIA");
 				stage.setScene(scene);
 				stage.show();
-				btnEntrar.getScene().getWindow().hide();	
-			} else 
-				InfoAlert.errorAlert("Erro ao logar", "Usuário e/ou senha inválidos.");
-		}			
+				btnEntrar.getScene().getWindow().hide();
+				
+				state = true;
+			}		
+		}
+		if (!state) {
+			InfoAlert.errorAlert("Erro ao logar", "Usuário e/ou senha inválidos.");
+		}		
 	}
 }
